@@ -1,7 +1,5 @@
 package genetics
 
-import org.scalatest.prop.Configuration.MinSize
-
 object GeneticAlgorithm {
 
   /**
