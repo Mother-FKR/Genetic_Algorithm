@@ -1,5 +1,7 @@
 package genetics
 
+import org.scalatest.prop.Configuration.MinSize
+
 object GeneticAlgorithm {
 
   /**
@@ -14,7 +16,7 @@ object GeneticAlgorithm {
   def geneticAlgorithm[T](incubator: List[Double] => T, costFunction: T => Double, numberOfGenes: Int): T = {
     // Generate random [Lists of Double] (Animals)
     // val animal: List[Double] = List.fill(numberOfGenes)(-100 + (100 + 100) * scala.util.Random.nextDouble)
-    val animals: List[List[Double]] = animalsGenerator(10, numberOfGenes)
+    val animals: List[List[Double]] = animalsGenerator(10, numberOfGenes, -100, 100)
     val listOfT: List[T] = animals.map(incubator(_)) // Convert "potential solution" from following index
     val listOfCost: List[Double] = listOfT.map(costFunction(_)) // compute the cost of each potential solution
 
@@ -35,13 +37,13 @@ object GeneticAlgorithm {
 
   }
 
-  def animalsGenerator(numberOfAnimals: Int, numberOfGenes: Int): List[List[Double]] = {
+  def animalsGenerator(numberOfAnimals: Int, numberOfGenes: Int, minSize: Double, maxSize: Double): List[List[Double]] = {
     val animals: List[List[Double]] = List()
     if(numberOfAnimals == 0){
       animals
     } else {
-      animals :+ List.fill(numberOfGenes)(-100 + (100 + 100) * scala.util.Random.nextDouble)
-      animalsGenerator(numberOfAnimals - 1, numberOfGenes)
+      animals :+ List.fill(numberOfGenes)(minSize + (maxSize - minSize) * scala.util.Random.nextDouble)
+      animalsGenerator(numberOfAnimals - 1, numberOfGenes, minSize, maxSize)
     }
   }
 
