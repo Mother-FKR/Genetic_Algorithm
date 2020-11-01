@@ -30,6 +30,9 @@ object GeneticAlgorithm {
     // Get the best animal in this generation
     val bestAnimal: List[Double] = mapSorted.head._1
 
+    // Simulate genetic mutations of the best animals
+    val bestAnimals: List[List[Double]] = animalsGenerator(10, numberOfGenes, bestAnimal.min - 5, bestAnimal.max + 5)
+
 
 
 
